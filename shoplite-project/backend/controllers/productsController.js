@@ -1,23 +1,21 @@
-const db = require('../config/db');
+const db = require('../db');
 
 // Mappa colonne DB → campi frontend
 function mapProduct(row) {
   return {
-    id:          row.id,
-    name:        row.name,
+    id: row.id,
+    name: row.name,
     description: row.description,
-    price:       parseFloat(row.price),
-    quantity:    row.quantity,
-    imageUrl:    row.image_url,
-    category:    row.category,
+    price: parseFloat(row.price),
+    quantity: row.quantity,
+    imageUrl: row.image_url,
+    category: row.category,
   };
 }
 
 async function getAll(req, res) {
   try {
-    const [rows] = await db.query(
-      'SELECT * FROM products ORDER BY created_at DESC'
-    );
+    const [rows] = await db.query('SELECT * FROM products ORDER BY created_at DESC');
     res.json(rows.map(mapProduct));
   } catch (err) {
     console.error(err);
@@ -27,10 +25,7 @@ async function getAll(req, res) {
 
 async function getById(req, res) {
   try {
-    const [rows] = await db.query(
-      'SELECT * FROM products WHERE id = ?',
-      [req.params.id]
-    );
+    const [rows] = await db.query('SELECT * FROM products WHERE id = ?', [req.params.id]);
     if (rows.length === 0) {
       return res.status(404).json({ error: 'Prodotto non trovato' });
     }
@@ -52,7 +47,7 @@ async function create(req, res) {
     const [result] = await db.query(
       `INSERT INTO products (name, description, price, quantity, image_url, category)
        VALUES (?, ?, ?, ?, ?, ?)`,
-      [name, description ?? null, price, quantity ?? 0, imageUrl ?? null, category ?? null]
+      [name, description ?? null, price, quantity ?? 0, imageUrl ?? null, category ?? null],
     );
     const [rows] = await db.query('SELECT * FROM products WHERE id = ?', [result.insertId]);
     res.status(201).json(mapProduct(rows[0]));
@@ -74,7 +69,15 @@ async function update(req, res) {
       `UPDATE products
        SET name = ?, description = ?, price = ?, quantity = ?, image_url = ?, category = ?
        WHERE id = ?`,
-      [name, description ?? null, price, quantity ?? 0, imageUrl ?? null, category ?? null, req.params.id]
+      [
+        name,
+        description ?? null,
+        price,
+        quantity ?? 0,
+        imageUrl ?? null,
+        category ?? null,
+        req.params.id,
+      ],
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Prodotto non trovato' });
@@ -89,10 +92,7 @@ async function update(req, res) {
 
 async function remove(req, res) {
   try {
-    const [result] = await db.query(
-      'DELETE FROM products WHERE id = ?',
-      [req.params.id]
-    );
+    const [result] = await db.query('DELETE FROM products WHERE id = ?', [req.params.id]);
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Prodotto non trovato' });
     }
