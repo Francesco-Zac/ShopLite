@@ -116,19 +116,25 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.cart-item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }</style>
+
+
 <div class="cart-container">
   <h2>Carrello</h2>
 
-  <div *ngIf="cartItems().length === 0">
-    Il carrello è vuoto
-  </div>
-
-  <div *ngFor="let item of cartItems()">
-    <div class="cart-item">
-      <h3>{{ item.product.name }}</h3>
-      <img [src]="item.product.image" alt="{{ item.product.name }}" />
-      <p>Prezzo: {{ item.product.price }} €</p>
+  @if (cartItems().length === 0) {
+    <div>Il carrello è vuoto</div>
+  } @else {
+    @for (item of cartItems(); track item.product.id) {
+      <div class="cart-item">
+        <h3>{{ item.product.name }}</h3>
+        <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" />
+        <p>Prezzo: {{ item.product.price | currency:'EUR'}} €</p>
 
       <div>
         <button (click)="decrease(item.product.id)">-</button>
@@ -142,13 +148,17 @@ hr {
         Rimuovi
       </button>
     </div>
-  </div>
+  }
 
   <hr />
 
-  <h3>Totale carrello: {{ total() }} €</h3>
+  <h3>Totale carrello: {{ total() | currency:'EUR':'symbol':'1.2-2' }} €</h3>
 
-  <button (click)="checkout()">
-    Checkout
-  </button>
+  <button 
+  (click)="checkout()" 
+  [disabled]="cartItems().length === 0 || isLoading()">
+  {{ isLoading() ? 'Caricamento...' : 'Checkout' }}
+</button>
+
+}
 </div>

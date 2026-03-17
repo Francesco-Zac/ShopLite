@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
 import { CartItem, Product } from '../models/product-model/product-model'; 
 
 @Injectable({
@@ -6,7 +6,7 @@ import { CartItem, Product } from '../models/product-model/product-model';
 })
 export class CartService {
 
-  private _cartItems = signal<CartItem[]>([]);
+  private _cartItems = signal<CartItem[]>(this.getInitialCart());
 
   cartItems = this._cartItems.asReadonly();
 
@@ -17,21 +17,29 @@ export class CartService {
       0
     )
   );
+  constructor() {
+  effect(() => {
+    localStorage.setItem('cart', JSON.stringify(this._cartItems()));
+  });
+}
+
+  private getInitialCart(): CartItem[] {
+    const saved = localStorage.getItem('cart');
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return []; 
+    }
+  }
 
   // aggiungere prodotto
   addToCart(product: Product) {
-    const items = this._cartItems();
-
-    const existing = items.find(i => i.product.id === product.id);
-
-    if (existing) {
-      this.increaseQuantity(product.id);
-    } else {
-      this._cartItems.set([
-        ...items,
-        { product, qty: 1 }
-      ]);
-    }
+    this._cartItems.update(items => {
+      const existing = items.find(i => i.product.id === product.id);
+      return existing 
+        ? items.map(i => i.product.id === product.id ? { ...i, qty: i.qty + 1 } : i)
+        : [...items, { product, qty: 1 }];
+    });
   }
 
   // aumentare quantità
@@ -68,18 +76,36 @@ export class CartService {
   }
 
   // checkout
-  checkout() {
-    const order = {
-      items: this._cartItems(),
-      total: this.total()
-    };
+ checkout() {
+  const order = {
+    items: this._cartItems(),
+    total: this.total()
+  };
 
-    console.log('Ordine inviato:', order);
-     
-    alert('Ordine completato!');
+  return fetch('http://localhost:3000/orders', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(order)
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Error en el pago');
+      return res.json();
+    })
+    .then(data => {
+      this._cartItems.set([]); 
+      return data;
+    })
+    .catch(err => {
+      console.error('Checkout error:', err);
+      throw err; 
+    });
+}
 
-    // TODO: POST /orders
+clearCart() {
+  this._cartItems.set([]);
+}
 
-    this._cartItems.set([]);
-  }
+
 }
