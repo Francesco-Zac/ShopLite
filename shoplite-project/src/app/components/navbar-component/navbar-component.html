@@ -36,6 +36,11 @@
     <li><a routerLink="/" routerLinkActive="active">Home</a></li>
     <li><a routerLink="/products" routerLinkActive="active">Prodotti</a></li>
     <li><a routerLink="/cart" routerLinkActive="active">Carrello</a></li>
-    <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+    <li> @if (auth.isAdmin()) {
+      <a routerLink="/admin" class="text-gray-600 hover:text-gray-900">Admin</a>
+      <button (click)="logout()" class="text-gray-600 hover:text-gray-900">Logout</button>
+    } @else {
+      <a routerLink="/login" class="text-gray-600 hover:text-gray-900">Login</a>
+    }</li>
   </ul>
 </nav>

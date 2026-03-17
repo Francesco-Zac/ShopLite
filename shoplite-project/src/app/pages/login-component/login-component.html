@@ -1,0 +1,36 @@
+<div class="min-h-[70vh] flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow p-8 w-full max-w-sm">
+    <h2 class="text-2xl font-bold mb-6">Login Admin</h2>
+
+    <form (ngSubmit)="onLogin()" class="flex flex-col gap-4">
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Username</label>
+        <input [(ngModel)]="username" name="username" type="text"
+          placeholder="username" required
+          class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500" />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-600 mb-1">Password</label>
+        <div class="relative">
+          <input [(ngModel)]="password" name="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="password" required
+            class="w-full border rounded px-3 py-2 pr-10 focus:outline-none focus:border-blue-500" />
+          <button type="button" (click)="togglePassword()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+            {{ showPassword() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      @if (error()) {
+        <p class="text-red-500 text-sm">Credenziali non valide</p>
+      }
+
+      <button type="submit" class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">
+        Accedi
+      </button>
+    </form>
+  </div>
+</div>

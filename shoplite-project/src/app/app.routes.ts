@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { ProductListComponent } from './components/product-list-component/product-list-component';
 import { CartComponent } from './components/cart.component/cart.component';
+import { LoginComponent } from './pages/login-component/login-component';
+
 //import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
@@ -8,5 +10,6 @@ export const routes: Routes = [
  // { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
  // { path: 'checkout', component: CheckoutComponent },
+  { path: 'login',         component: LoginComponent },
  // { path: 'admin', loadComponent: () => import('./components/admin-product-form/admin-product-form.component').then(m => m.AdminProductFormComponent), canActivate: [AdminGuard] }
 ];
