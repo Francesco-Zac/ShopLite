@@ -3,10 +3,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
+    "rootDir": "src/app",  
     "types": [
-      "vitest/globals"
-    ]
+      "vitest/globals"]
   },
   "include": [
     "src/**/*.d.ts",
