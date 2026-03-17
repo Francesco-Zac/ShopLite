@@ -1,1 +1,33 @@
-<p>product-card-component works!</p>
+<div class="bg-white rounded-lg shadow p-4 flex flex-col gap-3">
+  <div class="relative">
+    <img [src]="product().imageUrl" [alt]="product().name" class="w-full h-48 object-cover rounded" />
+    @if (product().quantity === 0) {
+      <span class="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
+        Esaurito
+      </span>
+    }
+  </div>
+
+  <div>
+    <span class="text-xs text-gray-400 uppercase">{{ product().category }}</span>
+    <h3 class="font-semibold text-gray-800 mt-1">
+      <a [routerLink]="['/prodotto', product().id]" class="hover:underline">
+        {{ product().name }}
+      </a>
+    </h3>
+    <p class="text-sm text-gray-500 mt-1">{{ product().description }}</p>
+  </div>
+
+  <div class="flex items-center justify-between mt-auto">
+    <span class="text-lg font-bold">€ {{ product().price }}</span>
+    <button
+      data-buy-btn
+      (click)="onAdd()"
+      [appOutOfStock]="product().quantity"
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+    >
+      Aggiungi
+    </button>
+  </div>
+</div>
+

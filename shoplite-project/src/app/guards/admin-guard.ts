@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
 
-export const adminGuardGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = (route, state) => {
   return true;
 };

@@ -1,0 +1,17 @@
+<section class="home">
+<header class="shop-header">
+<h1 class="text-3xl font-bold mb-8" class=" hero-title">I nostri prodotti</h1>
+<p class="hero-sub">Artigianato italiano • Materiali selezionati • Edizione limitata</p>
+</header>
+
+@if (productSvc.loading()) {
+  <p class="text-gray-500">Caricamento prodotti...</p>
+} @else {
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (product of productSvc.products(); track product.id) {
+      <app-product-card-component [product]="product" (addToCart)="onAddToCart($event)" />
+    }
+  </div>
+}
+
+</section>
