@@ -8,7 +8,8 @@ import { AdminComponent } from './pages/admin/admin';
 //import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
-  { path: '', component: ProductListComponent },
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: 'products', component: ProductListComponent },
  // { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },

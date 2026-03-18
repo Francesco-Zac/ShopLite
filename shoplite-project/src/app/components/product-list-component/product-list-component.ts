@@ -21,7 +21,7 @@ productSvc = inject(ProductService);
   }
 
   onAddToCart(product: Product): void {
-    this.cartSvc.add(product);
+    this.cartSvc.addToCart(product);
   }
 
 }
