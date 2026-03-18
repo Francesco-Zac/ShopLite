@@ -1,17 +1,70 @@
 <section class="home">
-<header class="shop-header">
-<h1 class="text-3xl font-bold mb-8" class=" hero-title">I nostri prodotti</h1>
-<p class="hero-sub">Artigianato italiano • Materiali selezionati • Edizione limitata</p>
-</header>
+  <header class="shop-header">
+    <h1 class="text-3xl font-bold mb-8" class="hero-title">I nostri prodotti</h1>
+    <p class="hero-sub">Artigianato italiano • Materiali selezionati • Edizione limitata</p>
+    <p>Benvenuto nella home della nostra azienda</p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, eius cum alias optio,
+      adipisci provident odit nisi vel iste suscipit veniam inventore rem quibusdam repellat ipsum
+      quam harum consequuntur quis. Esse voluptatem nesciunt reiciendis reprehenderit possimus autem
+      eos quas laudantium maxime exercitationem odit eveniet consequuntur assumenda illum
+      voluptatibus impedit laboriosam neque, et tenetur animi quasi sequi. Nobis cum neque iure?
+      Itaque perspiciatis praesentium omnis veniam esse debitis doloremque cupiditate similique
+      tempore aliquid ratione, voluptatibus error dolor quibusdam unde aut quae id iste inventore
+      nisi amet voluptate sint quis? Ex, soluta. Blanditiis fugit nulla magni repellendus nisi error
+      neque quod eos recusandae atque! Repellat ipsum quas, ullam necessitatibus assumenda illum
+      eius ipsam ea saepe sequi repellendus enim velit blanditiis facilis aliquam! Illum qui, natus
+      maiores nobis reiciendis, dignissimos deserunt ipsam delectus nulla odio molestiae ea laborum
+      enim, perferendis quas voluptate adipisci labore itaque. Ut optio ab sed velit. Magni, atque
+      ea? Rerum autem dignissimos libero tempore magni sapiente deleniti dolor architecto odit
+      nesciunt fugit, veritatis a recusandae. Fugit dolores nobis nostrum sequi iusto laudantium
+      consequuntur corporis accusantium eius animi, asperiores voluptatum! Mollitia accusamus vitae,
+      praesentium quidem quis, voluptate sed architecto ipsam velit corrupti unde iure reprehenderit
+      est animi veniam amet? Officiis voluptas deserunt ipsa qui corporis voluptatem architecto
+      fugiat sit ex! Ex voluptatibus quam vel quisquam ducimus sit! Aut harum odit, earum similique
+      enim labore minus repudiandae. Inventore nam laudantium eveniet quidem adipisci. Unde
+      voluptate ipsum sint doloribus iusto veritatis enim. Nesciunt assumenda nemo ipsa rerum. Sunt
+      provident, voluptatum, nemo cumque magnam magni est dolor veritatis explicabo deleniti nihil
+      molestiae exercitationem inventore. Incidunt ipsam ab quo molestias adipisci veniam sint
+      magnam. Qui, quidem quam eos delectus cum ratione blanditiis quaerat alias ipsam esse
+      veritatis, repudiandae aperiam magni excepturi eius porro pariatur velit numquam commodi quo.
+      Ullam reprehenderit voluptas est unde deserunt. Quas modi eveniet debitis iusto voluptatibus
+      cumque culpa nostrum. Ullam facere, eveniet veritatis ea accusamus, doloremque beatae quasi
+      molestias ad officia neque id itaque unde numquam saepe quisquam hic doloribus. Tempora
+      tenetur corrupti reprehenderit accusantium earum praesentium qui, eum reiciendis recusandae
+      deleniti, sit minima labore? Quam magni quo, vel aut accusantium omnis suscipit,
+      exercitationem est, iste at repellendus? Aliquam, alias. Accusantium excepturi nemo culpa odit
+      modi eius reiciendis natus facere minus quo, voluptatibus laboriosam praesentium totam, vitae
+      tempora harum! Ducimus asperiores delectus fugiat voluptate, enim expedita quod porro tempore
+      iure. Maxime dicta minus cupiditate explicabo recusandae officia voluptatem aspernatur, harum
+      dolor quo? Aliquid, sed temporibus numquam aut cum non architecto veniam hic! Cumque
+      voluptates nostrum aut esse ratione et ullam. Harum nostrum velit maiores! Labore voluptatum,
+      molestiae cumque fuga et laborum vero atque! Maxime, id deserunt. Rem odit repellat quo porro
+      fugit? Cumque temporibus magnam, illum ratione corrupti soluta sequi. Debitis, quo odit
+      repellendus magnam reprehenderit cupiditate facilis accusamus amet nostrum aperiam dolor
+      impedit fugiat ducimus nihil porro ullam eum tempora magni obcaecati doloribus! Maiores illo
+      eius officia dolore culpa? Ipsa, officia in? Corrupti quas placeat debitis perferendis aliquid
+      ratione sunt veniam dolorum recusandae commodi, illo reiciendis atque assumenda id molestiae
+      ad labore adipisci repellendus hic doloremque, nostrum nobis ipsa. Id excepturi, ea dolore
+      perspiciatis eveniet perferendis consectetur obcaecati maxime veritatis odio. Obcaecati
+      placeat impedit minima facilis, ipsam reiciendis dolor quasi perspiciatis reprehenderit
+      dolorum totam commodi. Veniam tenetur amet deserunt. Iure nisi libero fuga animi sed, possimus
+      officiis qui eos. Dicta recusandae modi esse perspiciatis dolor repudiandae laborum inventore
+      perferendis deserunt ratione harum quasi, doloremque consectetur! Sapiente, sed eaque! Odit.
+      Reiciendis esse ut ex repellat soluta quae modi recusandae veritatis beatae? Saepe, dolore
+      nihil totam non quas tenetur voluptas minus praesentium nesciunt dicta ex, obcaecati quisquam
+      amet minima. Fugiat, odio!
+    </p>
+  </header>
 
-@if (productSvc.loading()) {
-  <p class="text-gray-500">Caricamento prodotti...</p>
-} @else {
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for (product of productSvc.products(); track product.id) {
-      <app-product-card-component [product]="product" (addToCart)="onAddToCart($event)" />
-    }
-  </div>
-}
-
+  <h2>I nostri prodotti</h2>
+  @if (productSvc.loading()) {
+    <p class="text-gray-500">Caricamento prodotti...</p>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (product of productSvc.products(); track product.id) {
+        <app-product-card-component [product]="product" (addToCart)="onAddToCart($event)" />
+      }
+    </div>
+  }
 </section>

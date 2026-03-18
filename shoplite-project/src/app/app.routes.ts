@@ -10,10 +10,10 @@ import { AdminComponent } from './pages/admin/admin';
 export const routes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
   { path: 'products', component: ProductListComponent },
- // { path: 'product/:id', component: ProductDetailComponent },
+  // { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'login',         component: LoginComponent },
-   { path: 'admin', component: AdminComponent }
- // { path: 'admin', loadComponent: () => import('./components/admin-product-form/admin-product-form.component').then(m => m.AdminProductFormComponent), canActivate: [AdminGuard] }
+  { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminComponent },
+  // { path: 'admin', loadComponent: () => import('./components/admin-product-form/admin-product-form.component').then(m => m.AdminProductFormComponent), canActivate: [AdminGuard] }
 ];

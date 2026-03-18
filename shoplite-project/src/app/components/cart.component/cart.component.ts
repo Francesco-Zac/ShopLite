@@ -30,11 +30,11 @@ export class CartComponent {
     this.cartService.removeFromCart(productId);
   }
 
-async checkout() {
-    if (this.cartItems().length === 0) 
+  async checkout() {
+    if (this.cartItems().length === 0) {
       alert('Il tuo carrello è vuoto!');
       return;
-
+    }
     const confirmOrder = confirm("Sei sicuro di voler confermare l'ordine?");
     if (!confirmOrder) return;
 
@@ -43,10 +43,12 @@ async checkout() {
     try {
       await this.cartService.checkout();
       alert('Ordine completato con successo! Grazie per il tuo acquisto.');
-      this.router.navigate(['/']); 
+      this.router.navigate(['/']);
     } catch (error) {
       console.error('Errore durante il checkout:', error);
-      alert('Si è verificato un errore durante l\'elaborazione dell\'ordine. Per favore, riprova più tardi.');
+      alert(
+        "Si è verificato un errore durante l'elaborazione dell'ordine. Per favore, riprova più tardi.",
+      );
     } finally {
       this.isLoading.set(false);
     }

@@ -18,26 +18,26 @@ async function login(req, res) {
 
     const admin = rows[0];
 
+    const storedPassword = String(admin.password ?? '').trim();
+    const sentPassword = String(password ?? '').trim();
+
     console.log('---------------- DEBUG LOGIN ----------------');
     console.log('Username richiesto:', username);
     console.log('Righe trovate:', rows.length);
-    console.log(
-      'Password nel DB (primi 20 char):',
-      admin.password ? admin.password.substring(0, 20) : 'NULL',
-    );
-    console.log('Lunghezza password nel DB:', admin.password ? admin.password.length : '0');
-    console.log('Inizia con $2? ', admin.password ? admin.password.startsWith('$2') : false);
-    console.log('Password inviata dal client:', password);
+    console.log('Password nel DB (primi 20 char):', storedPassword.substring(0, 20));
+    console.log('Lunghezza password nel DB:', storedPassword.length);
+    console.log('Inizia con $2? ', storedPassword.startsWith('$2'));
+    console.log('Password inviata dal client:', sentPassword);
 
     let passwordValida = false;
 
-    if (admin.password && admin.password.startsWith('$2')) {
+    if (storedPassword.startsWith('$2')) {
       console.log('→ Ramo: bcrypt.compare');
-      passwordValida = await bcrypt.compare(password, admin.password);
+      passwordValida = await bcrypt.compare(sentPassword, storedPassword);
       console.log('  bcrypt.compare risultato:', passwordValida);
     } else {
       console.log('→ Ramo: confronto in chiaro');
-      passwordValida = admin.password === password;
+      passwordValida = storedPassword === sentPassword;
       console.log('  Confronto in chiaro risultato:', passwordValida);
       if (passwordValida) {
         console.log('[TEST] Login riuscito con password in chiaro');

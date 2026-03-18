@@ -6,7 +6,14 @@ const cors = require('cors');
 const app = express();
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: true, // in dev permettiamo qualsiasi origine (localhost / port test)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // import delle rotte
