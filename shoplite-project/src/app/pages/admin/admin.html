@@ -1,0 +1,58 @@
+<h2>Admin - Product Management</h2>
+<div class="card">
+<form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+
+  <div>
+    <label>Name</label>
+    <input
+      type="text"
+      name="name"
+      [(ngModel)]="product.name"
+      required
+    />
+  </div>
+
+  <div>
+    <label>Price</label>
+    <input
+      type="number"
+      name="price"
+      [(ngModel)]="product.price"
+      required
+      min="1"
+    />
+  </div>
+
+  <div>
+    <label>Description</label>
+    <textarea
+      name="description"
+      [(ngModel)]="product.description"
+    ></textarea>
+  </div>
+
+  <div>
+    <label>Quantity</label>
+    <input
+      type="number"
+      name="quantity"
+      [(ngModel)]="product.quantity"
+    />
+  </div>
+
+  <button type="submit" [disabled]="productForm.invalid">
+    Save Product
+  </button>
+
+</form>
+
+<hr>
+
+<h3>Products List (demo)</h3>
+
+<ul>
+  <li *ngFor="let p of products">
+    {{ p.name }} - {{ p.price }}€
+  </li>
+</ul>
+</div>
