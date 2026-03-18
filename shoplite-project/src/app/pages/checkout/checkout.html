@@ -1,0 +1,15 @@
+<h2>Checkout</h2>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+  <input type="text" placeholder="Nome" formControlName="firstName">
+  <input type="text" placeholder="Cognome" formControlName="lastName">
+  <input type="email" placeholder="Email" formControlName="email">
+  <input type="text" placeholder="Indirizzo" formControlName="address">
+  <input type="text" placeholder="Città" formControlName="city">
+  <input type="text" placeholder="ZIP" formControlName="zip">
+  <input type="text" placeholder="Paese" formControlName="country">
+
+  <button type="submit">Conferma ordine</button>
+
+</form>
