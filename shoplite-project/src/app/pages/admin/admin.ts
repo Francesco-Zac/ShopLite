@@ -9,6 +9,7 @@ import { Product } from '../../models/product-model/product-model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin.html',
+  styleUrls: ['./admin.css'],
 })
 export class AdminComponent implements OnInit {
   private productService = inject(ProductService);
