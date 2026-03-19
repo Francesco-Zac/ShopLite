@@ -1,10 +1,7 @@
 <section class="page-shell">
   <header class="page-header">
     <p class="page-eyebrow">Area admin</p>
-    <h1 class="page-title">Gestione prodotti con lo stesso sistema UI del catalogo.</h1>
-    <p class="page-copy">
-      Form, pannelli e tabella condividono componenti visivi comuni invece di ridefinire CSS locale in ogni pagina.
-    </p>
+    <h1 class="page-title">Gestione prodotti</h1>
   </header>
 
   <section class="grid gap-6 xl:grid-cols-[24rem_minmax(0,1fr)]">
@@ -46,7 +43,7 @@
         </div>
 
         <div class="form-field">
-          <label class="form-label" for="quantity">Quantita</label>
+          <label class="form-label" for="quantity">Quantità</label>
           <input id="quantity" type="number" name="quantity" [(ngModel)]="product.quantity" class="form-input" />
         </div>
 
@@ -79,7 +76,7 @@
             <tr>
               <th>Nome prodotto</th>
               <th>Prezzo</th>
-              <th>Quantita'</th>
+              <th>Quantità</th>
               <th>Categoria</th>
               <th>Azioni</th>
             </tr>
