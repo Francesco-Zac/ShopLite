@@ -1,59 +1,112 @@
-# ShopliteProject
+# ShopLite Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+ShopLite e un progetto e-commerce composto da:
 
-## Development server
+- frontend Angular 21
+- backend Node.js + Express
+- database MySQL
 
-To start a local development server, run:
+Il frontend gira di default su `http://localhost:4200`, mentre il backend espone le API su `http://localhost:3000/api`.
+
+## Struttura del progetto
+
+```text
+shoplite-project/
+|-- src/                     # Frontend Angular
+|   |-- app/
+|   |   |-- components/      # Componenti UI riutilizzabili
+|   |   |-- directives/      # Direttive custom
+|   |   |-- guards/          # Protezione rotte
+|   |   |-- models/          # Modelli TypeScript
+|   |   |-- pages/           # Pagine principali dell'app
+|   |   `-- services/        # Chiamate API e logica condivisa
+|   `-- environments/        # Configurazione ambiente frontend
+|-- backend/                 # Server Express e accesso al database
+|   |-- controllers/         # Logica delle API
+|   |-- middleware/          # Middleware Express
+|   |-- routes/              # Definizione endpoint
+|   |-- db.js                # Connessione MySQL e inizializzazione DB
+|   |-- index.js             # Avvio del backend
+|   `-- .env.example         # Esempio configurazione backend
+|-- public/                  # Asset statici
+|-- dist/                    # Build di produzione
+`-- package.json             # Script e dipendenze del progetto
+```
+
+## Prerequisiti
+
+Prima di avviare il progetto assicurati di avere installato:
+
+- Node.js
+- npm
+- MySQL Server
+- Angular 21
+
+## Installazione dopo il download
+
+1. Apri un terminale nella cartella del progetto.
+2. Installa le dipendenze:
+
+```bash
+npm install
+```
+
+
+## Avvio corretto del progetto
+
+Per far funzionare correttamente l'applicazione devono essere attivi:
+
+- MySQL
+- backend Express
+- frontend Angular
+
+### 1. Avvia MySQL
+
+Verifica che il server MySQL sia in esecuzione
+
+### 2. Avvia il backend
+
+In un primo terminale esegui:
+
+```bash
+cd backend
+node index.js
+```
+
+Se tutto è configurato correttamente, il server sarà disponibile su:
+
+```text
+http://localhost:3000
+```
+
+Endpoint di verifica:
+
+```text
+http://localhost:3000/api/health
+```
+
+### 3. Avvia il frontend
+
+In un secondo terminale esegui:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Poi apri il browser su:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Nota: il frontend usa come API base URL `http://localhost:3000/api`, quindi il backend deve essere avviato prima o insieme al frontend.
+
+## Script disponibili
 
 ```bash
-ng generate --help
+npm start
+npm run start:frontend
+npm run start:backend
+npm run build
+npm run test
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
