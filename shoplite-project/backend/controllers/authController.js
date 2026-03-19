@@ -17,41 +17,12 @@ async function login(req, res) {
     }
 
     const admin = rows[0];
-
-    const storedPassword = String(admin.password ?? '').trim();
-    const sentPassword = String(password ?? '').trim();
-
-    console.log('---------------- DEBUG LOGIN ----------------');
-    console.log('Username richiesto:', username);
-    console.log('Righe trovate:', rows.length);
-    console.log('Password nel DB (primi 20 char):', storedPassword.substring(0, 20));
-    console.log('Lunghezza password nel DB:', storedPassword.length);
-    console.log('Inizia con $2? ', storedPassword.startsWith('$2'));
-    console.log('Password inviata dal client:', sentPassword);
-
-    let passwordValida = false;
-
-    if (storedPassword.startsWith('$2')) {
-      console.log('→ Ramo: bcrypt.compare');
-      passwordValida = await bcrypt.compare(sentPassword, storedPassword);
-      console.log('  bcrypt.compare risultato:', passwordValida);
-    } else {
-      console.log('→ Ramo: confronto in chiaro');
-      passwordValida = storedPassword === sentPassword;
-      console.log('  Confronto in chiaro risultato:', passwordValida);
-      if (passwordValida) {
-        console.log('[TEST] Login riuscito con password in chiaro');
-      }
-    }
-
-    console.log('Risultato finale validazione:', passwordValida);
-    console.log('---------------------------------------------');
+    const passwordValida = await bcrypt.compare(String(password), String(admin.password));
 
     if (!passwordValida) {
-      return res.status(401).json({ error: 'Credenziali non validee' });
+      return res.status(401).json({ error: 'Credenziali non valide' });
     }
 
-    // se siamo arrivati qui → password corretta (in chiaro o hashata)
     const token = jwt.sign({ id: admin.id, username: admin.username }, process.env.JWT_SECRET, {
       expiresIn: '8h',
     });
