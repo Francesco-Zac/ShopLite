@@ -9,8 +9,8 @@ export class CartService {
   private _cartItems = signal<CartItem[]>(this.getInitialCart());
 
   cartItems = this._cartItems.asReadonly();
+  itemCount = computed(() => this._cartItems().reduce((sum, item) => sum + item.qty, 0));
 
-  // totale corretto con qty
   total = computed(() =>
     this._cartItems().reduce((sum, item) => sum + item.product.price * item.qty, 0),
   );

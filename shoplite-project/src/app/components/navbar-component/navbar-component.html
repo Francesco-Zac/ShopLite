@@ -11,8 +11,39 @@
       >
         Home
       </a>
-      <a routerLink="/cart" routerLinkActive="topbar__link--active" class="topbar__link">
-        Carrello
+      <a
+        routerLink="/cart"
+        routerLinkActive="topbar__link--active"
+        class="topbar__link relative inline-flex h-11 w-11 items-center justify-center p-0"
+        aria-label="Carrello"
+        title="Carrello"
+      >
+        <span class="sr-only">Carrello</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          class="h-5 w-5"
+          aria-hidden="true"
+        >
+          <circle cx="9" cy="20" r="1.25" />
+          <circle cx="18" cy="20" r="1.25" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 4h2.2l2.4 9.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.7L21 7H7.1"
+          />
+        </svg>
+
+        @if (cart.itemCount() > 0) {
+          <span
+            class="absolute -right-1 -top-1 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1 text-[11px] font-bold leading-none text-stone-950"
+          >
+            {{ cart.itemCount() }}
+          </span>
+        }
       </a>
 
       @if (auth.isAdmin()) {

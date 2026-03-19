@@ -10,13 +10,13 @@
   <section class="grid gap-6 xl:grid-cols-[24rem_minmax(0,1fr)]">
     <div class="surface-panel p-6 sm:p-8">
       <div class="mb-6">
-        <p class="page-eyebrow">Nuovo prodotto</p>
+        <p class="page-eyebrow">{{ editingProductId !== null ? 'Modifica prodotto' : 'Nuovo prodotto' }}</p>
         <h2 class="mt-2 text-2xl font-semibold text-stone-950">Crea o aggiorna il catalogo</h2>
       </div>
 
       <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" class="space-y-5">
         <div class="form-field">
-          <label class="form-label" for="name">Nome</label>
+          <label class="form-label" for="name">Nome prodotto</label>
           <input id="name" type="text" name="name" [(ngModel)]="product.name" required class="form-input" />
         </div>
 
@@ -50,7 +50,17 @@
           <input id="quantity" type="number" name="quantity" [(ngModel)]="product.quantity" class="form-input" />
         </div>
 
-        <button type="submit" class="btn-primary w-full">Salva prodotto</button>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button type="submit" class="btn-primary w-full sm:w-auto">
+            {{ editingProductId !== null ? 'Aggiorna prodotto' : 'Salva prodotto' }}
+          </button>
+
+          @if (editingProductId !== null) {
+            <button type="button" (click)="cancelEdit(productForm)" class="btn-secondary w-full sm:w-auto">
+              Annulla
+            </button>
+          }
+        </div>
       </form>
     </div>
 
@@ -67,9 +77,9 @@
         <table class="app-table">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Nome prodotto</th>
               <th>Prezzo</th>
-              <th>Quantita</th>
+              <th>Quantita'</th>
               <th>Categoria</th>
               <th>Azioni</th>
             </tr>
@@ -92,8 +102,7 @@
               <td>{{ p.category || '-' }}</td>
               <td>
                 <div class="flex flex-wrap gap-2">
-                  <button type="button" (click)="adjustStock(p, 1)" class="btn-secondary">+1</button>
-                  <button type="button" (click)="adjustStock(p, -1)" class="btn-secondary">-1</button>
+                  <button type="button" (click)="startEdit(p)" class="btn-secondary">Modifica</button>
                   <button type="button" (click)="removeProduct(p.id)" class="btn-danger">Delete</button>
                 </div>
               </td>
