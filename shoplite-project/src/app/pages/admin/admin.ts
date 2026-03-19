@@ -39,7 +39,7 @@ export class AdminComponent implements OnInit {
       if (this.editingProductId !== null) {
         await this.productService.update(this.editingProductId, payload);
         alert('Prodotto aggiornato con successo!');
-      } else {
+        } else {
         await this.productService.create(payload);
         alert('Prodotto creato con successo!');
       }
