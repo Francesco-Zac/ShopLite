@@ -4,16 +4,15 @@ import { CartComponent } from './components/cart.component/cart.component';
 import { LoginComponent } from './pages/login-component/login-component';
 import { CheckoutComponent } from './pages/checkout/checkout';
 import { AdminComponent } from './pages/admin/admin';
-
-//import { adminGuard } from './guards/admin-guard';
+import { ProductDetailComponent } from './components/product-detail-component/product-detail-component';
+import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'products', pathMatch: 'full' },
   { path: 'products', component: ProductListComponent },
-  // { path: 'product/:id', component: ProductDetailComponent },
+  { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
-  // { path: 'admin', loadComponent: () => import('./components/admin-product-form/admin-product-form.component').then(m => m.AdminProductFormComponent), canActivate: [AdminGuard] }
+  { path: 'admin', canActivate: [adminGuard], component: AdminComponent}
 ];

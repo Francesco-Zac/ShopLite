@@ -1,55 +1,61 @@
-<div class="checkout">
-  <h2>Checkout</h2>
+<section class="page-shell">
+  <header class="page-header">
+    <p class="page-eyebrow">Checkout</p>
+    <h1 class="page-title">Dati di spedizione e conferma ordine.</h1>
+    <p class="page-copy">
+      Compila il form con le informazioni essenziali. La struttura del modulo segue lo stesso
+      sistema visivo usato nel resto dell'applicazione.
+    </p>
+  </header>
 
-  <form class="checkout-form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div class="mx-auto w-full max-w-4xl">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="surface-panel form-grid p-8 sm:p-10">
+      <div class="form-field">
+        <label class="form-label" for="firstName">Nome</label>
+        <input id="firstName" type="text" formControlName="firstName" placeholder="Mario" class="form-input" />
+        @if (checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid) {
+          <small class="form-help">Campo obbligatorio.</small>
+        }
+      </div>
 
-    <!-- ROW -->
-    <div class="field">
-      <label>Nome</label>
-      <input type="text" formControlName="firstName" placeholder="Mario">
-      <small *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
-        Campo obbligatorio
-      </small>
-    </div>
+      <div class="form-field">
+        <label class="form-label" for="lastName">Cognome</label>
+        <input id="lastName" type="text" formControlName="lastName" placeholder="Rossi" class="form-input" />
+      </div>
 
-    <div class="field">
-      <label>Cognome</label>
-      <input type="text" formControlName="lastName" placeholder="Rossi">
-    </div>
+      <div class="form-field form-field--full">
+        <label class="form-label" for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="email@email.com" class="form-input" />
+        @if (checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched) {
+          <small class="form-help">Email non valida.</small>
+        }
+      </div>
 
-    <!-- FULL -->
-    <div class="field full">
-      <label>Email</label>
-      <input type="email" formControlName="email" placeholder="email@email.com">
-      <small *ngIf="checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched">
-        Email non valida
-      </small>
-    </div>
+      <div class="form-field form-field--full">
+        <label class="form-label" for="address">Indirizzo</label>
+        <input id="address" type="text" formControlName="address" placeholder="Via Roma 123" class="form-input" />
+      </div>
 
-    <div class="field full">
-      <label>Indirizzo</label>
-      <input type="text" formControlName="address" placeholder="Via Roma 123">
-    </div>
+      <div class="form-field">
+        <label class="form-label" for="city">Citta</label>
+        <input id="city" type="text" formControlName="city" placeholder="Roma" class="form-input" />
+      </div>
 
-    <div class="field">
-      <label>Città</label>
-      <input type="text" formControlName="city">
-    </div>
+      <div class="form-field">
+        <label class="form-label" for="zip">CAP</label>
+        <input id="zip" type="text" formControlName="zip" placeholder="00100" class="form-input" />
+      </div>
 
-    <div class="field">
-      <label>ZIP</label>
-      <input type="text" formControlName="zip">
-    </div>
+      <div class="form-field form-field--full">
+        <label class="form-label" for="country">Paese</label>
+        <input id="country" type="text" formControlName="country" placeholder="Italia" class="form-input" />
+      </div>
 
-    <div class="field full">
-      <label>Paese</label>
-      <input type="text" formControlName="country">
-    </div>
-
-    <!-- BOTÓN -->
-    <button type="submit" [disabled]="checkoutForm.invalid">
-      Conferma ordine
-    </button>
-
-  </form>
-</div>
+      <div class="md:col-span-2">
+        <button type="submit" [disabled]="checkoutForm.invalid" class="btn-primary w-full sm:w-auto">
+          Conferma ordine
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

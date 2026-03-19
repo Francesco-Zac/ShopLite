@@ -1,80 +1,106 @@
-<div class="admin">
-  <h2>Admin - Product Management</h2>
+<section class="page-shell">
+  <header class="page-header">
+    <p class="page-eyebrow">Area admin</p>
+    <h1 class="page-title">Gestione prodotti con lo stesso sistema UI del catalogo.</h1>
+    <p class="page-copy">
+      Form, pannelli e tabella condividono componenti visivi comuni invece di ridefinire CSS locale in ogni pagina.
+    </p>
+  </header>
 
-  <div class="admin-layout">
+  <section class="grid gap-6 xl:grid-cols-[24rem_minmax(0,1fr)]">
+    <div class="surface-panel p-6 sm:p-8">
+      <div class="mb-6">
+        <p class="page-eyebrow">Nuovo prodotto</p>
+        <h2 class="mt-2 text-2xl font-semibold text-stone-950">Crea o aggiorna il catalogo</h2>
+      </div>
 
-    
-    <div class="admin-form box">
-      <div class="card">
-        <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+      <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" class="space-y-5">
+        <div class="form-field">
+          <label class="form-label" for="name">Nome</label>
+          <input id="name" type="text" name="name" [(ngModel)]="product.name" required class="form-input" />
+        </div>
 
-          <div>
-            <label>Name</label>
-            <input type="text" name="name" [(ngModel)]="product.name" required />
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="price">Prezzo</label>
+          <input id="price" type="number" name="price" [(ngModel)]="product.price" required class="form-input" />
+        </div>
 
-          <div>
-            <label>Price</label>
-            <input type="number" name="price" [(ngModel)]="product.price" required />
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="description">Descrizione</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="product.description"
+            class="form-textarea"
+          ></textarea>
+        </div>
 
-          <div>
-            <label>Description</label>
-            <textarea name="description" [(ngModel)]="product.description"></textarea>
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="imageUrl">URL immagine</label>
+          <input id="imageUrl" type="text" name="imageUrl" [(ngModel)]="product.imageUrl" class="form-input" />
+        </div>
 
-          <div>
-            <label>Image URL</label>
-            <input type="text" name="imageUrl" [(ngModel)]="product.imageUrl" />
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="category">Categoria</label>
+          <input id="category" type="text" name="category" [(ngModel)]="product.category" class="form-input" />
+        </div>
 
-          <div>
-            <label>Category</label>
-            <input type="text" name="category" [(ngModel)]="product.category" />
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="quantity">Quantita</label>
+          <input id="quantity" type="number" name="quantity" [(ngModel)]="product.quantity" class="form-input" />
+        </div>
 
-          <div>
-            <label>Quantity</label>
-            <input type="number" name="quantity" [(ngModel)]="product.quantity" />
-          </div>
+        <button type="submit" class="btn-primary w-full">Salva prodotto</button>
+      </form>
+    </div>
 
-          <button type="submit">Save Product</button>
+    <div class="surface-panel overflow-hidden">
+      <div class="flex items-center justify-between gap-4 border-b border-stone-200 px-6 py-5 sm:px-8">
+        <div>
+          <p class="page-eyebrow">Inventario</p>
+          <h2 class="mt-2 text-2xl font-semibold text-stone-950">Tabella prodotti</h2>
+        </div>
+        <span class="status-badge status-badge--success">{{ products().length }} articoli</span>
+      </div>
 
-        </form>
+      <div class="overflow-x-auto px-2 py-2 sm:px-4">
+        <table class="app-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Prezzo</th>
+              <th>Quantita</th>
+              <th>Categoria</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let p of products()">
+              <td class="font-semibold text-stone-900">{{ p.name }}</td>
+              <td>{{ p.price | currency:'EUR':'symbol':'1.2-2' }}</td>
+              <td>
+                <span
+                  class="status-badge"
+                  [class.status-badge--success]="p.quantity > 5"
+                  [class.status-badge--warn]="p.quantity > 0 && p.quantity <= 5"
+                  [class.status-badge--danger]="p.quantity === 0"
+                >
+                  {{ p.quantity }}
+                </span>
+              </td>
+              <td>{{ p.category || '-' }}</td>
+              <td>
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" (click)="adjustStock(p, 1)" class="btn-secondary">+1</button>
+                  <button type="button" (click)="adjustStock(p, -1)" class="btn-secondary">-1</button>
+                  <button type="button" (click)="removeProduct(p.id)" class="btn-danger">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
-  
-    <div class="admin-table box">
-      <h3>Products List</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let p of products()">
-            <td>{{ p.name }}</td>
-            <td>{{ p.price }} €</td>
-            <td>{{ p.quantity }}</td>
-            <td>{{ p.category }}</td>
-            <td>
-              <button (click)="adjustStock(p, 1)">+1</button>
-              <button (click)="adjustStock(p, -1)">-1</button>
-              <button (click)="removeProduct(p.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-  </div>
-</div>
+  </section>
+</section>

@@ -1,36 +1,56 @@
-<div class="min-h-[70vh] flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow p-8 w-full max-w-sm">
-    <h2 class="text-2xl font-bold mb-6">Login Admin</h2>
-
-    <form (ngSubmit)="onLogin()" class="flex flex-col gap-4">
-      <div>
-        <label class="block text-sm text-gray-600 mb-1">Username</label>
-        <input [(ngModel)]="username" name="username" type="text"
-          placeholder="username" required
-          class="w-full border rounded px-3 py-2 focus:outline-none focus:border-blue-500" />
+<section class="page-shell">
+  <div class="mx-auto flex min-h-[70vh] w-full max-w-lg items-center">
+    <div class="surface-panel w-full p-8 sm:p-10">
+      <div class="mb-8 space-y-3">
+        <p class="page-eyebrow">Accesso riservato</p>
+        <h1 class="text-3xl font-semibold text-stone-950">Login admin</h1>
+        <p class="text-sm leading-6 text-stone-600">
+          Accedi all'area di gestione per aggiornare catalogo e disponibilita.
+        </p>
       </div>
 
-      <div>
-        <label class="block text-sm text-gray-600 mb-1">Password</label>
-        <div class="relative">
-          <input [(ngModel)]="password" name="password"
-            [type]="showPassword() ? 'text' : 'password'"
-            placeholder="password" required
-            class="w-full border rounded px-3 py-2 pr-10 focus:outline-none focus:border-blue-500" />
-          <button type="button" (click)="togglePassword()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-            {{ showPassword() ? '🙈' : '👁️' }}
-          </button>
+      <form (ngSubmit)="onLogin()" class="space-y-5">
+        <div class="form-field">
+          <label class="form-label" for="username">Username</label>
+          <input
+            id="username"
+            [(ngModel)]="username"
+            name="username"
+            type="text"
+            placeholder="Inserisci username"
+            required
+            class="form-input"
+          />
         </div>
-      </div>
 
-      @if (error()) {
-        <p class="text-red-500 text-sm">Credenziali non valide</p>
-      }
+        <div class="form-field">
+          <label class="form-label" for="password">Password</label>
+          <div class="relative">
+            <input
+              id="password"
+              [(ngModel)]="password"
+              name="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="Inserisci password"
+              required
+              class="form-input pr-24"
+            />
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500 hover:text-amber-700"
+            >
+              {{ showPassword() ? 'Nascondi' : 'Mostra' }}
+            </button>
+          </div>
+        </div>
 
-      <button type="submit" class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">
-        Accedi
-      </button>
-    </form>
+        @if (error()) {
+          <p class="form-help">Credenziali non valide.</p>
+        }
+
+        <button type="submit" class="btn-primary w-full">Accedi</button>
+      </form>
+    </div>
   </div>
-</div>
+</section>

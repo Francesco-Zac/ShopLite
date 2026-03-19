@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { routes } from '../../app.routes';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -50,7 +49,7 @@ export class CheckoutComponent implements OnInit {
         .then(() => {
           this.cartService.clearCart();
           alert('Ordine inviato!');
-          this.router.navigate(['/']);
+          this.router.navigate(['/products']);
         })
         .catch(err => {
           console.error(err);

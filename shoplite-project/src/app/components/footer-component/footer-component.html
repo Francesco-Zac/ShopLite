@@ -1,32 +1,16 @@
-<footer class="footer">
-  <p>© 2026 ShopLite - Tutti i diritti riservati</p>
-  <div class="links">
-    <a href="#">Home</a>
-    <a href="#">Prodotti</a>
-    <a href="#">Carrello</a>
+<footer class="footer-shell">
+  <div class="footer-shell__inner">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-stone-900">ShopLite</p>
+      <p class="mt-2 text-sm text-stone-500">Catalogo curato, checkout essenziale, gestione rapida.</p>
+    </div>
+
+    <div class="footer-shell__links">
+      <a routerLink="/products" class="link-inline">Prodotti</a>
+      <a routerLink="/cart" class="link-inline">Carrello</a>
+      <a routerLink="/login" class="link-inline">Area admin</a>
+    </div>
+
+    <p class="text-sm text-stone-500">Copyright {{ year }} ShopLite</p>
   </div>
-
-  <style>
-    .footer {
-      margin-top: 40px;
-      padding: 1rem;
-      background: #1e1e2f;
-      color: white;
-      text-align: center;
-    }
-
-    .links {
-      margin-top: 10px;
-    }
-
-    .links a {
-      margin: 0 10px;
-      color: white;
-      text-decoration: none;
-    }
-
-    .links a:hover {
-      text-decoration: underline;
-    }
-  </style>
 </footer>

@@ -1,0 +1,50 @@
+<section class="page-shell">
+  <a routerLink="/products" class="link-inline text-sm">Torna ai prodotti</a>
+
+  @if (loading()) {
+    <div class="empty-state">Caricamento...</div>
+  } @else if (product()) {
+    <article class="surface-panel grid gap-8 p-6 md:grid-cols-2 md:p-8">
+      <div class="overflow-hidden rounded-[1.5rem] bg-stone-100">
+        <img [src]="product()!.imageUrl" [alt]="product()!.name" class="h-full w-full object-cover" />
+      </div>
+
+      <div class="flex flex-col gap-5">
+        <div class="space-y-3">
+          <p class="page-eyebrow">{{ product()!.category || 'Prodotto' }}</p>
+          <h1 class="text-4xl font-semibold tracking-tight text-stone-950">
+            {{ product()!.name }}
+          </h1>
+          <p class="text-base leading-7 text-stone-600">{{ product()!.description }}</p>
+        </div>
+
+        <span class="price-tag">{{ product()!.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+
+        @if (product()!.quantity > 0) {
+          <span class="status-badge status-badge--success">
+            Disponibile ({{ product()!.quantity }} pz)
+          </span>
+        } @else {
+          <span class="status-badge status-badge--danger">Esaurito</span>
+        }
+
+        <div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <button
+            type="button"
+            (click)="addToCart()"
+            [appOutOfStock]="product()!.quantity"
+            class="btn-primary"
+          >
+            Aggiungi al carrello
+          </button>
+
+          @if (added()) {
+            <p class="text-sm font-medium text-emerald-700">Prodotto aggiunto al carrello.</p>
+          }
+        </div>
+      </div>
+    </article>
+  } @else {
+    <div class="empty-state">Prodotto non trovato.</div>
+  }
+</section>

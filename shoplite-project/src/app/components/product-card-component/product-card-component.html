@@ -1,33 +1,33 @@
-<div class="bg-white rounded-lg shadow p-4 flex flex-col gap-3">
-  <div class="relative">
-    <img [src]="product().imageUrl" [alt]="product().name" class="w-full h-48 object-cover rounded" />
+<article class="surface-card flex h-full flex-col gap-5">
+  <div class="relative overflow-hidden rounded-[1.25rem] bg-stone-100">
+    <img [src]="product().imageUrl" [alt]="product().name" class="h-56 w-full object-cover" />
     @if (product().quantity === 0) {
-      <span class="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
-        Esaurito
-      </span>
+      <span class="status-badge status-badge--danger absolute right-4 top-4">Esaurito</span>
     }
   </div>
 
-  <div>
-    <span class="text-xs text-gray-400 uppercase">{{ product().category }}</span>
-    <h3 class="font-semibold text-gray-800 mt-1">
-      <a [routerLink]="['/prodotto', product().id]" class="hover:underline">
-        {{ product().name }}
-      </a>
-    </h3>
-    <p class="text-sm text-gray-500 mt-1">{{ product().description }}</p>
+  <div class="flex flex-1 flex-col gap-3">
+    <span class="page-eyebrow">{{ product().category || 'Catalogo' }}</span>
+    <div>
+      <h3 class="text-xl font-semibold text-stone-950">
+        <a [routerLink]="['/product', product().id]" class="hover:text-amber-700">
+          {{ product().name }}
+        </a>
+      </h3>
+      <p class="mt-2 text-sm leading-6 text-stone-600">{{ product().description }}</p>
+    </div>
   </div>
 
-  <div class="flex items-center justify-between mt-auto">
-    <span class="text-lg font-bold">€ {{ product().price }}</span>
+  <div class="mt-auto flex items-center justify-between gap-4">
+    <span class="price-tag">{{ product().price | currency:'EUR':'symbol':'1.2-2' }}</span>
     <button
       data-buy-btn
+      type="button"
       (click)="onAdd()"
       [appOutOfStock]="product().quantity"
-      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+      class="btn-primary"
     >
       Aggiungi
     </button>
   </div>
-</div>
-
+</article>

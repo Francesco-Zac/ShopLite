@@ -1,46 +1,32 @@
-<style>
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1e1e2f;
-    padding: 1rem 2rem;
-    color: white;
-  }
+<nav class="topbar">
+  <div class="topbar__inner">
+    <a class="topbar__brand" routerLink="/products">ShopLite</a>
 
-  .logo {
-    font-weight: bold;
-    font-size: 1.3rem;
-    cursor: pointer;
-  }
+    <div class="topbar__nav">
+      <a
+        routerLink="/products"
+        routerLinkActive="topbar__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="topbar__link"
+      >
+        Home
+      </a>
+      <a routerLink="/cart" routerLinkActive="topbar__link--active" class="topbar__link">
+        Carrello
+      </a>
 
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-  }
-
-  .nav-links a.active {
-    border-bottom: 2px solid white;
-  }
-</style>
-<nav class="navbar">
-  <div class="logo" routerLink="/">ShopLite</div>
-
-  <ul class="nav-links">
-    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-    <li><a routerLink="/products" routerLinkActive="active">Prodotti</a></li>
-    <li><a routerLink="/cart" routerLinkActive="active">Carrello</a></li>
-    <li> @if (auth.isAdmin()) {
-      <a routerLink="/admin" class="text-gray-600 hover:text-gray-900">Admin</a>
-      <button (click)="logout()" class="text-gray-600 hover:text-gray-900">Logout</button>
-    } @else {
-      <a routerLink="/login" class="text-gray-600 hover:text-gray-900">Login</a>
-    }</li>
-  </ul>
+      @if (auth.isAdmin()) {
+        <a routerLink="/admin" routerLinkActive="topbar__link--active" class="topbar__link">
+          Admin
+        </a>
+        <button type="button" (click)="logout()" class="topbar__link">
+          Logout
+        </button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="topbar__link--active" class="topbar__link">
+          Login
+        </a>
+      }
+    </div>
+  </div>
 </nav>
