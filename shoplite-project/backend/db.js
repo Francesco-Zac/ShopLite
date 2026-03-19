@@ -36,6 +36,78 @@ const SAMPLE_PRODUCTS = [
       'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80',
     category: 'Wearable',
   },
+  {
+    name: 'Monitor Vision 27',
+    description: 'Monitor IPS da 27 pollici con risoluzione QHD e refresh rate a 144Hz.',
+    price: 329.99,
+    quantity: 14,
+    imageUrl:
+      'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80',
+    category: 'Monitor',
+  },
+  {
+    name: 'Mouse Air Mini',
+    description: 'Mouse wireless ergonomico con batteria ricaricabile e design compatto.',
+    price: 39.9,
+    quantity: 45,
+    imageUrl:
+      'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=900&q=80',
+    category: 'Accessori',
+  },
+  {
+    name: 'Tastiera Mech TKL',
+    description: 'Tastiera meccanica tenkeyless con switch lineari e retroilluminazione bianca.',
+    price: 89.5,
+    quantity: 22,
+    imageUrl:
+      'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=900&q=80',
+    category: 'Accessori',
+  },
+  {
+    name: 'Tablet Nova 11',
+    description: 'Tablet da 11 pollici ideale per intrattenimento, note e navigazione.',
+    price: 459,
+    quantity: 16,
+    imageUrl:
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=900&q=80',
+    category: 'Tablet',
+  },
+  {
+    name: 'Speaker Room One',
+    description: 'Cassa Bluetooth compatta con audio bilanciato e autonomia fino a 12 ore.',
+    price: 79.99,
+    quantity: 28,
+    imageUrl:
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=900&q=80',
+    category: 'Audio',
+  },
+  {
+    name: 'Webcam Stream HD',
+    description: 'Webcam Full HD con autofocus e microfono integrato per call e streaming.',
+    price: 64.9,
+    quantity: 19,
+    imageUrl:
+      'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=900&q=80',
+    category: 'Video',
+  },
+  {
+    name: 'SSD Flash 1TB',
+    description: 'Unita SSD esterna USB-C da 1TB per backup veloci e trasporto file.',
+    price: 109.99,
+    quantity: 34,
+    imageUrl:
+      'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=80',
+    category: 'Storage',
+  },
+  {
+    name: 'Power Bank Volt 20K',
+    description: 'Power bank da 20000 mAh con ricarica rapida USB-C e doppia porta.',
+    price: 49.99,
+    quantity: 40,
+    imageUrl:
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80',
+    category: 'Energia',
+  },
 ];
 
 let pool;
@@ -148,13 +220,15 @@ async function seedAdmin() {
 
 async function seedProducts() {
   const db = getPool();
-  const [rows] = await db.query('SELECT COUNT(*) AS total FROM products');
-
-  if (rows[0].total > 0) {
-    return;
-  }
+  const [rows] = await db.query('SELECT name FROM products');
+  const existingNames = new Set(rows.map((row) => row.name));
+  let insertedCount = 0;
 
   for (const product of SAMPLE_PRODUCTS) {
+    if (existingNames.has(product.name)) {
+      continue;
+    }
+
     await db.query(
       `INSERT INTO products (name, description, price, quantity, image_url, category)
        VALUES (?, ?, ?, ?, ?, ?)`,
@@ -167,9 +241,13 @@ async function seedProducts() {
         product.category,
       ],
     );
+
+    insertedCount += 1;
   }
 
-  console.log(`Seed prodotti completato: ${SAMPLE_PRODUCTS.length} prodotti inseriti`);
+  console.log(
+    `Seed prodotti completato: ${insertedCount} nuovi prodotti inseriti, totale catalogo seed ${SAMPLE_PRODUCTS.length}`,
+  );
 }
 
 async function initDatabase() {
