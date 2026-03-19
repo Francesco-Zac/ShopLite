@@ -1,15 +1,55 @@
-<h2>Checkout</h2>
+<div class="checkout">
+  <h2>Checkout</h2>
 
-<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <form class="checkout-form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
 
-  <input type="text" placeholder="Nome" formControlName="firstName">
-  <input type="text" placeholder="Cognome" formControlName="lastName">
-  <input type="email" placeholder="Email" formControlName="email">
-  <input type="text" placeholder="Indirizzo" formControlName="address">
-  <input type="text" placeholder="Città" formControlName="city">
-  <input type="text" placeholder="ZIP" formControlName="zip">
-  <input type="text" placeholder="Paese" formControlName="country">
+    <!-- ROW -->
+    <div class="field">
+      <label>Nome</label>
+      <input type="text" formControlName="firstName" placeholder="Mario">
+      <small *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
+        Campo obbligatorio
+      </small>
+    </div>
 
-  <button type="submit">Conferma ordine</button>
+    <div class="field">
+      <label>Cognome</label>
+      <input type="text" formControlName="lastName" placeholder="Rossi">
+    </div>
 
-</form>
+    <!-- FULL -->
+    <div class="field full">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="email@email.com">
+      <small *ngIf="checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched">
+        Email non valida
+      </small>
+    </div>
+
+    <div class="field full">
+      <label>Indirizzo</label>
+      <input type="text" formControlName="address" placeholder="Via Roma 123">
+    </div>
+
+    <div class="field">
+      <label>Città</label>
+      <input type="text" formControlName="city">
+    </div>
+
+    <div class="field">
+      <label>ZIP</label>
+      <input type="text" formControlName="zip">
+    </div>
+
+    <div class="field full">
+      <label>Paese</label>
+      <input type="text" formControlName="country">
+    </div>
+
+    <!-- BOTÓN -->
+    <button type="submit" [disabled]="checkoutForm.invalid">
+      Conferma ordine
+    </button>
+
+  </form>
+</div>

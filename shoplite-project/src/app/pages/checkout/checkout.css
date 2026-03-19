@@ -1,0 +1,106 @@
+/* ===== CHECKOUT ===== */
+
+.checkout {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+/* Título */
+.checkout h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+/* CARD */
+.checkout-form {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Campos */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field.full {
+  grid-column: span 2;
+}
+
+/* Labels */
+.field label {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Inputs estilo “tabla limpia” */
+.field input {
+  border: none;
+  border-bottom: 2px solid #bbb; /* más oscuro */
+  padding: 10px 4px;
+  font-size: 14px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+/* Focus */
+.field input:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+/* Error */
+.field small {
+  color: #e00;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Input inválido */
+.field input.ng-invalid.ng-touched {
+  border-bottom: 2px solid #e00;
+}
+
+/* BOTÓN */
+.checkout-form button {
+  grid-column: span 2;
+  margin-top: 25px;
+  background: black;
+  color: white;
+  padding: 14px;
+  border: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 10px; /* 👈 bordes redondeados */
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.checkout-form button:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .checkout-form {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form button {
+    grid-column: span 1;
+  }
+}

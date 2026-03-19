@@ -65,19 +65,20 @@ export class CartService {
   }
 
   // checkout
-  checkout() {
-    const order = {
-      items: this._cartItems(),
-      total: this.total(),
-    };
+  checkout(shippingData: any) {
+  const order = {
+    items: this._cartItems(),
+    total: this.total(),
+    shipping: shippingData
+  };
 
-    return fetch(`${environment.apiUrl}/cart/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(order),
-    })
+  return fetch(`${environment.apiUrl}/cart/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(order),
+  })
       .then((res) => {
         if (!res.ok) throw new Error('Error en el pago');
         return res.json();

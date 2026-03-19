@@ -1,71 +1,80 @@
-<h2>Admin - Product Management</h2>
-<div class="card">
-  <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
-    <div>
-      <label>Name</label>
-      <input type="text" name="name" [(ngModel)]="product.name" required />
+<div class="admin">
+  <h2>Admin - Product Management</h2>
+
+  <div class="admin-layout">
+
+    
+    <div class="admin-form box">
+      <div class="card">
+        <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+
+          <div>
+            <label>Name</label>
+            <input type="text" name="name" [(ngModel)]="product.name" required />
+          </div>
+
+          <div>
+            <label>Price</label>
+            <input type="number" name="price" [(ngModel)]="product.price" required />
+          </div>
+
+          <div>
+            <label>Description</label>
+            <textarea name="description" [(ngModel)]="product.description"></textarea>
+          </div>
+
+          <div>
+            <label>Image URL</label>
+            <input type="text" name="imageUrl" [(ngModel)]="product.imageUrl" />
+          </div>
+
+          <div>
+            <label>Category</label>
+            <input type="text" name="category" [(ngModel)]="product.category" />
+          </div>
+
+          <div>
+            <label>Quantity</label>
+            <input type="number" name="quantity" [(ngModel)]="product.quantity" />
+          </div>
+
+          <button type="submit">Save Product</button>
+
+        </form>
+      </div>
     </div>
 
-    <div>
-      <label>Price</label>
-      <input
-        type="number"
-        name="price"
-        [(ngModel)]="product.price"
-        required
-        min="0.01"
-        step="0.01"
-      />
+  
+    <div class="admin-table box">
+      <h3>Products List</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of products()">
+            <td>{{ p.name }}</td>
+            <td>{{ p.price }} €</td>
+            <td>{{ p.quantity }}</td>
+            <td>{{ p.category }}</td>
+            <td>
+              <button (click)="adjustStock(p, 1)">+1</button>
+              <button (click)="adjustStock(p, -1)">-1</button>
+              <button (click)="removeProduct(p.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
 
-    <div>
-      <label>Description</label>
-      <textarea name="description" [(ngModel)]="product.description"></textarea>
-    </div>
-
-    <div>
-      <label>Image URL</label>
-      <input type="text" name="imageUrl" [(ngModel)]="product.imageUrl" />
-    </div>
-
-    <div>
-      <label>Category</label>
-      <input type="text" name="category" [(ngModel)]="product.category" />
-    </div>
-
-    <div>
-      <label>Quantity</label>
-      <input type="number" name="quantity" [(ngModel)]="product.quantity" min="0" />
-    </div>
-
-    <button type="submit" [disabled]="productForm.invalid">Save Product</button>
-  </form>
-
-  <hr />
-
-  <h3>Products List</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>Category</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of products()">
-        <td>{{ p.name }}</td>
-        <td>{{ p.price | number: '1.2-2' }} €</td>
-        <td>{{ p.quantity }}</td>
-        <td>{{ p.category }}</td>
-        <td>
-          <button (click)="adjustStock(p, 1)">+1</button>
-          <button (click)="adjustStock(p, -1)" [disabled]="p.quantity === 0">-1</button>
-          <button (click)="removeProduct(p.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
 </div>
