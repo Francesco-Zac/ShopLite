@@ -31,6 +31,10 @@ export class CartService {
 
   // aggiungere prodotto
   addToCart(product: Product) {
+    if (product.quantity <= 0) {
+      return;
+    }
+
     this._cartItems.update((items) => {
       const existing = items.find((i) => i.product.id === product.id);
       return existing

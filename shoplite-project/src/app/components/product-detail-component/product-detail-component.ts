@@ -30,11 +30,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (this.product()) {
+    if (this.product() && this.product()!.quantity > 0) {
       this.cartSvc.addToCart(this.product()!);
       this.added.set(true);
       setTimeout(() => this.added.set(false), 2500);
     }
   }
 }
-

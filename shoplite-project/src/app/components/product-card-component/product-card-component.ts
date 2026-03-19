@@ -16,6 +16,10 @@ export class ProductCardComponent {
   addToCart = output<Product>();
 
   onAdd(): void {
+    if (this.product().quantity <= 0) {
+      return;
+    }
+
     this.addToCart.emit(this.product());
   }
 }
