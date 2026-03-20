@@ -6,7 +6,18 @@ ShopLite e un progetto e-commerce composto da:
 - backend Node.js + Express
 - database MySQL
 
+L’applicazione permette anche la gestione del carrello e il checkout, simulando un flusso completo di acquisto online.  
+È presente inoltre una sezione admin per la gestione dei prodotti.
+
 Il frontend gira di default su `http://localhost:4200`, mentre il backend espone le API su `http://localhost:3000/api`.
+
+## 👥 Team
+
+- Micaela Juarez Manescotto – Full Stack Developer – micajuarez26@hotmail.com
+- Nina Giuffrida – Full Stack Developer – jojo18@hotmail.it
+- Francesco Zaccaro – Full Stack Developer – francescozaccaro2@gmail.com
+- Scalia Dario – Full Stack Developer – scaliadario99@gmail.com
+
 
 ## Struttura del progetto
 
